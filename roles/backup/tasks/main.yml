@@ -35,13 +35,13 @@
 - name: Save configuration backup to file with date
   copy:
     content: "{{ config_current }}"
-    dest: "{{ backup_path }}{{ inventory_hostname }}-{{ jobtime }}.bak }}"
+    dest: "{{ backup_path }}{{ inventory_hostname }}-{{ jobtime }}.bak"
   when: config_changed is defined and config_changed
 
 - name: Save configuration backup as lastest configuration
   copy:
     content: "{{ config_current }}"
-    dest: "{{ backup_path }}{{ inventory_hostname }}-latest.bak }}"
+    dest: "{{ backup_path }}{{ inventory_hostname }}-latest.bak"
   when: config_current is defined
   register: local_backup
 
