@@ -1,0 +1,55 @@
+- name: Check if backup directory is present on local host
+  file:
+    path: "{{ backup_path }}"
+    state: directory
+  delegate_to: localhost
+  run_once: true
+
+- name: Check if job log directory is present on local host
+  file:     
+    path: "{{ backup_path }}"     
+    state: directory   
+  delegate_to: localhost   
+  run_once: true
+
+- name: Calculate configuration checksums
+  set_fact:
+    running_sha1: "{{ config_current | hash('sha1') }}"
+    latest_sha1: "{{ config_latest | hash('sha1') }}"
+  register: checksums
+  when:
+    - config_current is defined
+    - config_latest is defined
+
+- name:  Compare config checksums
+  set_fact:
+    config_changed: "{{ running_sha1 != latest_sha1 }}"
+  when:
+    - checksums is succeeded
+
+- name: Inspecting host vars on flag -vv
+  debug:
+    var: hostvars[inventory_hostname]     
+    verbosity: 2
+
+- name: Save configuration backup to file with date
+  copy:
+    content: "{{ config_current }}"
+    dest: "{{ backup_path }}{{ inventory_hostname }}-{{ jobtime }}.bak }}"
+  when: config_changed is defined and config_changed
+
+- name: Save configuration backup as lastest configuration
+  copy:
+    content: "{{ config_current }}"
+    dest: "{{ backup_path }}{{ inventory_hostname }}-latest.bak }}"
+  when: config_current is defined
+  register: local_backup
+
+- name: Log local backup success
+  lineinfile:
+    path: "{{ joblog_path }}{{ inventory_hostname }}.log"
+    state: present
+    create: yes
+    insertbefore: BOF
+    line: Backup success at {{ jobtime }}
+  when: local_backup is succeeded

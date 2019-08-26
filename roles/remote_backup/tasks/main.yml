@@ -1,0 +1,38 @@
+- name: Check if backup directory is present on destination host
+  file:
+    path: "{{ remote_backup_path }}"
+    state: directory
+
+- name: Check if job log directory is present on destination host
+  file:
+    path: "{{ remote_joblog_path }}"
+    state: directory
+
+- name: Save configuration backup to file with date
+  copy:
+    content: "{{ hostvars[item]['config_current'] }}"
+    dest: "{{ remote_backup_path }}{{ hostvars[item]['inventory_hostname'] }}-{{ jobtime }}.bak"
+  with_items:
+    - "{{ groups.backup }}"
+  when: hostvars[item]['config_changed']
+
+- name: Save configuration backup as lastest configuration
+  copy:
+    content: "{{ hostvars[item]['config_current'] }}"
+    dest: "{{ remote_backup_path }}{{ hostvars[item]['inventory_hostname'] }}-latest.bak"
+  with_items:
+    - "{{ groups.backup }}"
+  when: hostvars[item]['config_current'] is defined
+  register: remote_backup
+
+
+- name: Log local backup success
+  lineinfile:
+    path: "{{ remote_joblog_path }}{{ hostvars[item]['inventory_hostname'] }}.log"
+    state: present
+    create: yes
+    insertbefore: BOF
+    line: Backup job succeeded at {{ jobtime }}
+  with_items:
+    - "{{ groups.backup }}"
+  when: remote_backup is succeeded

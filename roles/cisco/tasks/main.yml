@@ -1,0 +1,9 @@
+- name: Get Nexus configuration
+  cli_command:
+    command: show running-config | begin version
+  register: running
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ running.stdout }}"
+    config_latest: "{{ lookup('file', '~/ansible/backup/{{ inventory_hostname }}-latest.bak', errors='ignore') }}"

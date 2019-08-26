@@ -1,0 +1,20 @@
+[all:vars]
+backup_path=~/ansible/backup/
+joblog_path=~/ansible/jobs/
+remote_backup_path=~/backup/
+remote_joblog_path=~/jobs/
+jobtime={{lookup('pipe', 'date +%Y-%m-%d--%H-%M')}}
+
+[nxos]
+nexus1 ansible_host=10.48.7.72
+
+[srx]
+srx1 ansible_host=10.48.0.129
+
+[bak]
+BAK1 ansible_host=10.48.7.75
+
+[backup]
+srx1
+nexus1
+
