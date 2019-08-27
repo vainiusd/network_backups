@@ -1,11 +1,11 @@
 [nxos]
-nexus1 ansible_host=10.48.7.72
+nexus1 ansible_host=NEXUS_MGMT_IP
 
 [srx]
-srx1 ansible_host=10.48.0.129
+srx1 ansible_host=JUNOS_MGMT_IP
 
 [bak]
-BAK1 ansible_host=10.48.7.75
+BAK1 ansible_host=BACKUP_SRV_IP
 
 [backup]
 srx1
