@@ -4,11 +4,11 @@
 
 Any device specific role generates {{ config_current }} and {{ config_latest }} varaibles for role backup, which checks configuration changeand does local configuration backup tasks on config change event.
 
-### Task name: Cisco-backups
+### Task name: Cisco-backup
 
 Backup Cisco devices.
 
-### Task name: Juniper-backups
+### Task name: Juniper-backup
 
 Backup Juniper Junos (SRX) devices.
 
