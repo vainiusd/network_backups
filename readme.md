@@ -77,9 +77,10 @@ Store configuration backups on remote linux machine.
 ## Variables
 
 All neccessary variables are kept in the inventory file and shared by roles.
+
 List of variables:
-  backup_path
-  joblog_path
-  remote_backup_path
-  remote_joblog_path
-  jobtime
+* backup_path
+* joblog_path
+* remote_backup_path
+* remote_joblog_path
+* jobtime
