@@ -37,6 +37,7 @@
     content: "{{ config_current }}"
     dest: "{{ backup_path }}{{ inventory_hostname }}-{{ jobtime }}.bak"
   when: config_changed is defined and config_changed
+  delegate_to: localhost
 
 - name: Save configuration backup as lastest configuration
   copy:
@@ -44,6 +45,7 @@
     dest: "{{ backup_path }}{{ inventory_hostname }}-latest.bak"
   when: config_current is defined
   register: local_backup
+  delegate_to: localhost
 
 - name: Log local backup success
   lineinfile:
@@ -53,3 +55,4 @@
     insertbefore: BOF
     line: Backup success at {{ jobtime }}
   when: local_backup is succeeded
+  delegate_to: localhost

@@ -24,6 +24,18 @@
      - backup
 
 #
+# Backup HP Comware devices.
+#
+- name: HP-backup
+  hosts: hp
+  connection: ssh
+  gather_facts: no
+
+  roles:
+     - hp_comware
+     - backup
+
+#
 # Store configuration backups on remote linux machine.
 # Role remote_backup works with items from hosts group [backup].
 # Remote backup server is in group [bak].
