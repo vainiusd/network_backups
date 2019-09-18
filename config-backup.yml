@@ -8,7 +8,7 @@
   gather_facts: no
 
   roles:
-    - cisco
+    - nxos
     - backup
 
 #
@@ -33,6 +33,18 @@
 
   roles:
      - hp_comware
+     - backup
+
+#
+# Backup ArubaOS devices.
+#
+- name: Aruba-backups
+  hosts: aruba
+  connection: local
+  gather_facts: no
+
+  roles:
+     - aruba
      - backup
 
 #

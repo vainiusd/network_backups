@@ -1,0 +1,4 @@
+ansible_user: username
+ansible_password: password
+ansible_port: 22
+ansible_python_interpreter: "/usr/bin/env python"

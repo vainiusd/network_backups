@@ -1,0 +1,15 @@
+- name: Get Aruba switch configuration
+  aruba_command:
+    commands:
+      - display current-configuration
+    provider:
+      host: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+      port: "{{ ansible_port | default(omit) }}"
+  register: running
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ running.stdout[0] }}"
+    config_latest: "{{ lookup('file', '{{ backup_path }}{{ inventory_hostname }}-latest.bak', errors='ignore') }}"

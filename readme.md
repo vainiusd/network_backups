@@ -2,15 +2,15 @@
 
 ## Config gathering
 
-Any device specific role generates {{ config_current }} and {{ config_latest }} varaibles for role backup, which checks configuration changeand does local configuration backup tasks on config change event.
+Any device specific role generates {{ config_current }} and {{ config_latest }} varaibles for role backup, which checks configuration change and does local configuration backup tasks on config change event.
 
-### Task name: Cisco-backup
+### Supported network devices
 
-Backup Cisco devices.
-
-### Task name: Juniper-backup
-
-Backup Juniper Junos (SRX) devices.
+Currently supported devices:
+* Aruba OS switches and mobility controllers
+* HP Comware7 switches
+* Juniper JUNOS devices
+* Cisco NXOS switches
 
 ### Additional device type configuration backup
 
