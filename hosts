@@ -14,8 +14,8 @@ aruba1 ansible_host=ARUBA_MGMT_IP
 BAK1 ansible_host=BACKUP_SRV_IP
 
 [backup]
-srx1
-nexus1
+srx
+nxos
 hp
 aruba
 
