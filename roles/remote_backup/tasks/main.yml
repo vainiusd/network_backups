@@ -26,7 +26,7 @@
   register: remote_backup
 
 
-- name: Log local backup success
+- name: Log remote backup success
   lineinfile:
     path: "{{ remote_joblog_path }}{{ hostvars[item]['inventory_hostname'] }}.log"
     state: present
