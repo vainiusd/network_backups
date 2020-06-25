@@ -1,0 +1,16 @@
+#
+# No RO user configuration available
+# Timestamp lines are deleted from gathered configuration
+# in order to make configuration diff check available
+#
+- name: Get ONYX Mellanox configuration
+  onyx_command:
+    commands: show running-config
+  become: yes
+  become_method: enable
+  register: config_running
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ config_running.stdout_lines[0][3:]|join('\n') }}"
+    config_latest: "{{ lookup('file', '{{backup_path}}{{ inventory_hostname }}-latest.bak', errors='ignore') }}"

@@ -27,11 +27,6 @@
   when:
     - checksums is succeeded
 
-- name: Inspecting host vars on flag -vv
-  debug:
-    var: hostvars[inventory_hostname]     
-    verbosity: 2
-
 - name: Save configuration backup to file with date
   copy:
     content: "{{ config_current }}"

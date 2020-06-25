@@ -2,13 +2,49 @@
 #
 # Backup Cisco Nexus devices.
 #
-- name: Cisco-backup
+- name: Cisco-Nexus-backup
   hosts: nxos
   connection: network_cli
   gather_facts: no
 
   roles:
     - nxos
+    - backup
+
+#
+# Backup Cisco IOS devices.
+#
+- name: Cisco-IOS-backup
+  hosts: ios
+  connection: network_cli
+  gather_facts: no
+
+  roles:
+     - ios
+     - backup
+
+#
+# Backup PanOS devices.
+#
+- name: Panos-backup
+  hosts: panos
+  connection: local
+  gather_facts: no
+
+  roles:
+    - panos
+    - backup
+
+#
+# Backup FortiOS devices.
+#
+- name: Fortios-backup
+  hosts: fortios
+  connection: local
+  gather_facts: no
+
+  roles:
+    - fortios
     - backup
 
 #
@@ -38,7 +74,7 @@
 #
 # Backup ArubaOS devices.
 #
-- name: Aruba-backups
+- name: Aruba-backup
   hosts: aruba
   connection: local
   gather_facts: no
@@ -48,14 +84,36 @@
      - backup
 
 #
-# Store configuration backups on remote linux machine.
-# Role remote_backup works with items from hosts group [backup].
-# Remote backup server is in group [bak].
+# Backup dellos9 devices.
 #
-- name: Remote-backup
-  hosts: bak
-  connection: ssh
+- name: DellOS9-backup
+  hosts: dellos9
+  connection: local
   gather_facts: no
 
   roles:
-     - remote_backup
+     - dellos9
+     - backup
+
+#
+# Backup ONYX Mellanox devices.
+#
+- name: Mellanox-backup
+  hosts: mellanox
+  connection: network_cli
+  gather_facts: no
+
+  roles:
+     - mellanox
+     - backup
+
+# Store configuration backups on remote linux machine.
+# Role remote_backup works with items from hosts group [backup].
+# Remote backup server is in group [bak].
+- name: Remote-backup
+ hosts: bak
+ connection: ssh
+ gather_facts: no
+
+ roles:
+    - remote_backup

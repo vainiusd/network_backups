@@ -1,0 +1,18 @@
+#
+# Read-only user configuration:
+# username backup_user privilege 5 view backup secret <SECRET>
+# parser view backup
+#  secret <SECRET>
+#  commands exec include all terminal
+#  commands exec include all show
+#
+
+- name: Get Cisco IOS configuration
+  ios_facts:
+    gather_subset:
+      - config
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ ansible_net_config }}"
+    config_latest: "{{ lookup('file', '{{backup_path}}{{ inventory_hostname }}-latest.bak', errors='ignore') }}"

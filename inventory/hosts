@@ -1,6 +1,15 @@
 [nxos]
 nexus1 ansible_host=NEXUS_MGMT_IP
 
+[ios]
+ios1 ansible_host=IOS_MGMT_IP
+
+[fortios]
+fortios1 ansible_host=FORTIOS_MGMT_IP
+
+[panos]
+panos1 ansible_host=PANOS_MGMT_IP
+
 [srx]
 srx1 ansible_host=JUNOS_MGMT_IP
 
@@ -10,14 +19,25 @@ cmw1 ansible_host=HPCMW_MGMT_IP
 [aruba]
 aruba1 ansible_host=ARUBA_MGMT_IP
 
+[dellos9]
+dellos91 ansible_host=DELLOS9_MGMT_IP
+
+[mellanox]
+mellanox1 ansible_host=MELLANOX_MGMT_IP
+
 [bak]
-BAK1 ansible_host=BACKUP_SRV_IP
+bak1 ansible_host=BACKUP_SRV_IP
 
 [backup]
-srx
 nxos
+ios
+fortios
+panos
+srx
 hp
 aruba
+dellos9
+mellanox
 
 [all:vars]
 backup_path=~/ansible/backup/

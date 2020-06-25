@@ -1,0 +1,21 @@
+#
+#config system api-user
+#    edit "backup"
+#        set accprofile "super_admin"
+#        set vdom "root"
+#
+# Every time you save the config in a export the password hash would be different 
+# https://forum.fortinet.com/tm.aspx?m=176962
+#
+
+- name: Fetch current config
+  uri:
+    url: 'https://{{ ansible_host }}/api/v2/monitor/system/config/backup/?scope=global&access_token={{ api_access_token }}'
+    return_content: yes
+    validate_certs: no
+  register: config_running
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ config_running.content }}"
+    config_latest: "{{ lookup('file', '{{backup_path}}{{ inventory_hostname }}-latest.bak', errors='ignore') }}"

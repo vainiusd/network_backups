@@ -1,0 +1,22 @@
+#
+### To configure roles on dell swithces you need to have sysadmin role on the user
+# userrole backup
+# username backup_user secret <SECRET> privilege 5 role backup
+# role exec addrole backup show version
+# role exec addrole backup terminal length
+# role exec addrole backup show running-config
+#
+
+- name: Get Dell OS9 configuration
+  dellos9_facts:
+    gather_subset:
+      - config
+    provider:
+      host: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ ansible_net_config }}"
+    config_latest: "{{ lookup('file', '{{backup_path}}{{ inventory_hostname }}-latest.bak', errors='ignore') }}"

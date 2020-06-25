@@ -1,0 +1,22 @@
+#
+# Requires https://ansible-pan.readthedocs.io/en/latest/
+# ansible-galaxy collection install paloaltonetworks.panos
+# Collection is mentioned in meta/main.yml
+# pip3 install pandevice
+#
+# user needs operation and configuration access rights
+# [op],[config] 
+#
+- name: Get Palo Alto Networks OS configuration
+  panos_facts:
+    gather_subset:
+      - config
+    provider:
+      username: "{{ ansible_username }}"
+      password: "{{ ansible_password }}"
+      ip_address: "{{ ansible_host }}"
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ ansible_net_config|trim }}"
+    config_latest: "{{ lookup('file', '{{backup_path}}{{ inventory_hostname }}-latest.bak', errors='ignore')|trim }}"
