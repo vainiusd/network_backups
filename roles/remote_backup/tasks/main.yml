@@ -12,6 +12,7 @@
   copy:
     content: "{{ hostvars[item]['config_current'] }}"
     dest: "{{ remote_backup_path }}{{ hostvars[item]['inventory_hostname'] }}-{{ jobtime }}.bak"
+    mode: 0640
   with_items:
     - "{{ groups.backup }}"
   when: hostvars[item]['config_changed']
@@ -20,6 +21,7 @@
   copy:
     content: "{{ hostvars[item]['config_current'] }}"
     dest: "{{ remote_backup_path }}{{ hostvars[item]['inventory_hostname'] }}-latest.bak"
+    mode: 0640
   with_items:
     - "{{ groups.backup }}"
   when: hostvars[item]['config_current'] is defined
