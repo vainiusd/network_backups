@@ -6,13 +6,19 @@
 #  commands exec include all terminal
 #  commands exec include all show
 #
+### Does not work because of lacking read rights with restricted user:
+#
+#- name: Get Cisco IOS configuration
+#  ios_facts:
+#    gather_subset:
+#      - config
 
-- name: Get Cisco IOS configuration
-  ios_facts:
-    gather_subset:
-      - config
+- name: Issue Cisco IOS show running-configuration view full command
+  ios_command:
+    commands: show running-config view full | begin version
+  register: config_running
 
 - name: Set config_* variables
   set_fact:
-    config_current: "{{ ansible_net_config }}"
+    config_current: "{{ config_running.stdout[0] }}"
     config_latest: "{{ lookup('file', '{{backup_path}}{{ inventory_hostname }}-latest.bak', errors='ignore') }}"
