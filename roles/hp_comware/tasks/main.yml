@@ -4,5 +4,5 @@
 
 - name: Set config_* variables
   set_fact:
-    config_current: "{{ running.stdout | | regex_replace('\0', '') | trim }}"
+    config_current: "{{ running.stdout | regex_replace('\0', '') | trim }}"
     config_latest: "{{ lookup('file', '{{ backup_path }}{{ inventory_hostname }}-latest.bak', errors='ignore') }}"
