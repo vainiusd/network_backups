@@ -14,7 +14,7 @@
     dest: "{{ remote_backup_path }}{{ hostvars[item]['inventory_hostname'] }}-{{ jobtime }}.bak"
     mode: 0640
   with_items:
-    - "{{ groups.backup }}"
+    - "{{ groups.remote_backup }}"
   when: hostvars[item]['config_changed']
 
 - name: Save configuration backup as lastest configuration
@@ -23,7 +23,7 @@
     dest: "{{ remote_backup_path }}{{ hostvars[item]['inventory_hostname'] }}-latest.bak"
     mode: 0640
   with_items:
-    - "{{ groups.backup }}"
+    - "{{ groups.remote_backup }}"
   when: hostvars[item]['config_current'] is defined
   register: remote_backup
 
@@ -36,5 +36,5 @@
     insertbefore: BOF
     line: Backup job succeeded at {{ jobtime }}
   with_items:
-    - "{{ groups.backup }}"
+    - "{{ groups.remote_backup }}"
   when: remote_backup is succeeded
