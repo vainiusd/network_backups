@@ -28,7 +28,7 @@ mellanox1 ansible_host=MELLANOX_MGMT_IP
 [bak]
 bak1 ansible_host=BACKUP_SRV_IP
 
-[backup]
+[remote_backup]
 nxos
 ios
 fortios
