@@ -1,0 +1,14 @@
+#
+# ansible-galaxy collection install cisco.asa
+# Collection is mentioned in meta/main.yml
+#
+#
+- name: Get Cisco ASA configuration
+  cisco.asa.asa_facts:
+    gather_subset:
+      - config
+
+- name: Set config_* variables
+  set_fact:
+    config_current: "{{ ansible_net_config|trim }}"
+    config_latest: "{{ lookup('file', '{{backup_path}}{{ inventory_hostname }}-latest.bak', errors='ignore')|trim }}"

@@ -25,6 +25,9 @@ dellos91 ansible_host=DELLOS9_MGMT_IP
 [mellanox]
 mellanox1 ansible_host=MELLANOX_MGMT_IP
 
+[cisco_asa]
+asa1 ansible_host=ASA_MGMT_IP
+
 [bak]
 bak1 ansible_host=BACKUP_SRV_IP
 
@@ -38,6 +41,7 @@ hp
 aruba
 dellos9
 mellanox
+cisco_asa
 
 [all:vars]
 backup_path=~/ansible/backup/

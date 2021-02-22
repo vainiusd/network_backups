@@ -107,6 +107,19 @@
      - mellanox
      - backup
 
+#
+# Backup Cisco ASA devices.
+#
+- name: ASA-backup
+  hosts: cisco_asa
+  connection: network_cli
+  become: yes
+  gather_facts: no
+
+  roles:
+    - cisco_asa
+    - backup
+
 # Store configuration backups on remote linux machine.
 # Role remote_backup works with items from hosts group [backup].
 # Remote backup server is in group [bak].
