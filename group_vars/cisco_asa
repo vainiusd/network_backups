@@ -1,4 +1,6 @@
 ansible_user: username
 ansible_password: password
+ansible_become_pass: enable
 ansible_network_os: asa
 ansible_python_interpreter: "/usr/bin/env python"
+#ansible_ssh_common_args: "-o KexAlgorithms=diffie-hellman-group14-sha1"

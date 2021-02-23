@@ -2,8 +2,23 @@
 # ansible-galaxy collection install cisco.asa
 # Collection is mentioned in meta/main.yml
 #
+# LIMITED PRIVILEGE NOTES:
+# limited users need configuration lines below
+# limited users use command "enable 5" to "become"
+# Become command change is done in file:
+# /home/USRENAME/.ansible/collections/ansible_collections/cisco/asa/plugins/terminal/asa.py
+# "enable"-> "enable 5"
 #
+#- name: Add configuration needed for limted used access
+#  become: yes
+#  cisco.asa.asa_config:
+#    lines:
+#      - privilege cmd level 5 mode exec command terminal
+#      - privilege show level 5 mode exec command running-config
+#
+
 - name: Get Cisco ASA configuration
+  become: yes
   cisco.asa.asa_facts:
     gather_subset:
       - config
